@@ -6,7 +6,10 @@ MVP -
         - three buttons labeled "deal", "hit", and "stand"
         - cards that are given to user face up and to the dealer face down
     - Actions 
-        - allow user to select one of the buttons and have it perform the corresponding funtion
+        - If user selects deal then deal 2 cards to both the player and the dealer
+        - If user selects hit then deal 1 card to the player
+        - If user selects stand then pass the turn to the dealer
+        - If dealers turn then deal cards to dealer until he either has a higher total than user or goes over 21
     - Win conditions
         - If user total is less than 21 but higher than dealers total then the user wins
         - If user total equal to 21 then the user wins
