@@ -16,26 +16,59 @@ const cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
 // Assigns value to each of the cards in the cards array
 const cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
-// variable to select a random card value from the arrays
-
 // array holding the players current cards
 const playerCards = []
 
 // array holding the dealers current cards
 const dealerCards = []
 
+const playerTotal = playerCards.reduce((pv, cv) => {
+    return pv + (parseFloat(cv) || 0);
+}, 0);
+
+
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 $('.deal').on('click', function () {
+    // variable to select a random card value from the arrays
     for (let i = 0; i < 2; i++) {
-            playerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
-            dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+        playerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+        dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
     }
 })
 
 // if the player clicks the hit button deal another random card to the player and update the total
-$('.hit').on('click', function(){
+$('.hit').on('click', function () {
+    // variable to select a random card value from the arrays
     playerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+
 })
+
+
+
+
+// const player = {
+//     playerCards: [],
+//     playerHits: function() {
+//     }
+
+
+// }
+// window.onload = function () {
+//     ('.hit').on('click', function () {
+//         // variable to select a random card value from the arrays
+//         player.playerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+
+//     })
+//     $('.deal').on('click', function () {
+//         // variable to select a random card value from the arrays
+//         for (let i = 0; i < 2; i++) {
+//             playerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+//             dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+//         }
+//     })
+// }
+
+
 
 // assign matching values from the cardsValue array to the cards dealt to each player
 // assign the total of the player cards to the player-total class
