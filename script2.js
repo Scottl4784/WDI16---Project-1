@@ -1,17 +1,16 @@
-const suits = ['Spades', 'Clubs', 'Hearts', 'Diamonds']; 
-const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']; 
-const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]; 
+const suits = ['Spades', 'Clubs', 'Hearts', 'Diamonds'];
+const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
+const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11];
 const cards = [];
 function createDeck() {
     for (let i = 0; i < suits.length; i++) {
-      for (let j = 0; j < faces.length; j++) {
-        let card = { suit: suits[i], face: faces[j], value: values[j] }
-        cards.push(card);
-      }
+        for (let j = 0; j < faces.length; j++) {
+            let card = { suit: suits[i], face: faces[j], value: values[j] }
+            cards.push(card);
+        }
     }
     console.log(cards);
-   }
-   createDeck()
+}
 
 // array holding the players current cards
 let playerCards = []
@@ -20,105 +19,104 @@ let playerCards = []
 
 // array holding the dealers current cards
 let dealerCards = []
-
-function randomNumber () {
-return cards[Math.floor(Math.random() * cards.length)]
+function randomNumber() {
+    return Math.floor(Math.random() * cardsValue.length)
 }
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 function deal() {
-reset()
-// variable to select a random card value from the arrays
-for (let i = 0; i < 2; i++) {
-    if (playerCards.length < 2) {
-        playerCards.push(cards.splice(randomNumber(), 1)[0])
-        dealerCards.push(cards.splice(randomNumber(), 1)[0])
-    }
-}
-// sums the total of the cards in the playercards array and puts it in playertotal 
-let playerTotal = playerCards.value.reduce((pv, cv) => {
-    return pv + (parseFloat(cv) || 0)
-}, 0)
-let dealerTotal = dealerCards.reduce((pv, cv) => {
-    return pv + (parseFloat(cv) || 0)
-}, 0)
-if (playerTotal > 21) {
-   reset()
-}
-if (dealerTotal > 21) {
     reset()
-}
-// input player and dealer score into the DOM
-$('.player').html(`<h2>Player - ${playerTotal}</h2><p>${playerCards}</p>`)
-$('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
+    // variable to select a random card value from the arrays
+    for (let i = 0; i < 2; i++) {
+        if (playerCards.length < 2) {
+            playerCards.push(cards[randomNumber()].value)
+            dealerCards.push(cards[randomNumber()].value)
+        }
+    }
+    // sums the total of the cards in the playercards array and puts it in playertotal 
+    let playerTotal = playerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    let dealerTotal = dealerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    if (playerTotal > 21) {
+        reset()
+    }
+    if (dealerTotal > 21) {
+        reset()
+    }
+    // input player and dealer score into the DOM
+    $('.player').html(`<h2>Player - ${playerTotal}</h2><p>${playerCards}</p>`)
+    $('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
 }
 
 // if the player clicks the hit button deal another random card to the player and update the total
 function playerTurn() {
-// checks to make sure player has started the game
-if (playerCards.length >= 2) {
-    playerCards.push(cards.splice(randomNumber(), 1)[0])
-}
-let playerTotal = playerCards.reduce((pv, cv) => {
-    return pv + (parseFloat(cv) || 0)
-}, 0)
-// if player has clicked deal and has 2 cards already allow this
-if (playerTotal > 21) {
-    $('.toast').text('Bust').css('color', 'red')
-}
-$('.player').html(`<h2>Player - ${playerTotal}</h2><p>${playerCards}</p>`)
+    // checks to make sure player has started the game
+    if (playerCards.length >= 2) {
+        playerCards.push(cards.value.splice(randomNumber(), 1)[0])
+    }
+    let playerTotal = playerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    // if player has clicked deal and has 2 cards already allow this
+    if (playerTotal > 21) {
+        $('.toast').text('Bust').css('color', 'red')
+    }
+    $('.player').html(`<h2>Player - ${playerTotal}</h2><p>${playerCards}</p>`)
 }
 
 
 
 // triggered by pressing the stand button and passing to the dealer
 function dealerTurn() {
-let playerTotal = playerCards.reduce((pv, cv) => {
-    return pv + (parseFloat(cv) || 0)
-}, 0)
-let dealerTotal = dealerCards.reduce((pv, cv) => {
-    return pv + (parseFloat(cv) || 0)
-}, 0)
-$('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
-//  deals cards to the dealer
-if (dealerTotal <= 17 && dealerTotal < playerTotal) {
-    dealerCards.push(cards.splice(randomNumber(), 1)[0])
-    dealerTurn()
-}
-// checks for win conditions
-if (dealerTotal >= 17) {
-    if (playerTotal > dealerTotal || dealerTotal > 21) {
-        $('.toast').text('You have won!').css('color', 'green')
-        return
+    let playerTotal = playerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    let dealerTotal = dealerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    $('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
+    //  deals cards to the dealer
+    if (dealerTotal <= 17 && dealerTotal < playerTotal) {
+        dealerCards.push(cards.value.splice(randomNumber(), 1)[0])
+        dealerTurn()
     }
-    if (playerTotal < dealerTotal) {
-        $('.toast').text('You have lost').css('color', 'red')
-        return
+    // checks for win conditions
+    if (dealerTotal >= 17) {
+        if (playerTotal > dealerTotal || dealerTotal > 21) {
+            $('.toast').text('You have won!').css('color', 'green')
+            return
+        }
+        if (playerTotal < dealerTotal) {
+            $('.toast').text('You have lost').css('color', 'red')
+            return
+        }
+        if (playerTotal == dealerTotal) {
+            $('.toast').text("It's a push")
+            return
+        }
+        reset()
     }
-    if (playerTotal == dealerTotal) {
-        $('.toast').text("It's a push")
-        return
-    }
-    reset()
-}
 }
 // resets the game
 function reset() {
-createDeck()
-playerCards = []
-dealerCards = []
-playerFaceCards = []
-$('.toast').html('')
-console.log('game reset')
+    createDeck()
+    playerCards = []
+    dealerCards = []
+    playerFaceCards = []
+    $('.toast').html('')
+    console.log('game reset')
 }
 // event listeners for buttons
 $('.deal').on('click', function () {
-deal()
+    deal()
 })
 $('.hit').on('click', function () {
-playerTurn()
+    playerTurn()
 })
 $('.stand').on('click', function () {
-dealerTurn()
+    dealerTurn()
 })
 
 
@@ -126,7 +124,7 @@ dealerTurn()
 
 
 
-// assign matching values from the cards array to the cards dealt to each player
+// assign matching values from the cards.value array to the cards dealt to each player
 // assign the total of the player cards to the player-total class
 
 // if the player total exceeds 21 then trigger "Bust!" toast

@@ -1,5 +1,5 @@
 // Stores each of the cards in the deck
-const cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
+let cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
     'twoOfSpades', 'twoOfClubs', 'twoOfHearts', 'twoOfDiamonds',
     'threeOfSpades', 'threeOfClubs', 'threeOfHearts', 'threeOfDiamonds',
     'fourOfSpades', 'fourOfClubs', 'fourOfHearts', 'fourOfDiamonds',
@@ -14,7 +14,7 @@ const cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
     'kingOfSpades', 'kingOfClubs', 'kingOfHearts', 'kingOfDiamonds']
 
 // Assigns value to each of the cards in the cards array
-const cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
+let cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
 // array holding the players current cards
 let playerCards = []
@@ -24,17 +24,17 @@ let playerCards = []
 // array holding the dealers current cards
 let dealerCards = []
 function randomNumber () {
-    return cardsValue[Math.floor(Math.random() * cardsValue.length)]
+    return Math.floor(Math.random() * cardsValue.length)
 }
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 function deal() {
     reset()
     // variable to select a random card value from the arrays
     for (let i = 0; i < 2; i++) {
-        if (playerCards.length < 2) {
+        // if (playerCards.length < 2) {
             playerCards.push(cardsValue.splice(randomNumber(), 1)[0])
             dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-        }
+        // }
     }
     // sums the total of the cards in the playercards array and puts it in playertotal 
     let playerTotal = playerCards.reduce((pv, cv) => {
