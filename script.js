@@ -17,15 +17,14 @@ const cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
 const cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
 // array holding the players current cards
-const playerCards = []
+let playerCards = []
 
 // array holding the dealers current cards
-const dealerCards = []
-
-
+let dealerCards = []
 
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 function deal() {
+    reset()
     // variable to select a random card value from the arrays
     for (let i = 0; i < 2; i++) {
         if (playerCards.length < 2) {
@@ -33,10 +32,19 @@ function deal() {
             dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
         }
     }
+    let playerTotal = playerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    let dealerTotal = dealerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0)
+    $('.player-total').text(`${playerTotal}`)
+    $('.dealer-total').text(`${dealerTotal}`)
 }
 
 // if the player clicks the hit button deal another random card to the player and update the total
 function hit() {
+    // checks to make sure player has started the game
     if (playerCards.length >= 2) {
         playerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
     }
@@ -47,6 +55,9 @@ function hit() {
     if (playerTotal > 21) {
         alert('Bust!')
     }
+    // console.log('hit',playerCards, dealerCards)
+    $('.player-total').text(`${playerTotal}`)
+    // reset()
 }
 
 
@@ -59,19 +70,36 @@ function stand() {
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
-    if (dealerTotal < 21 || dealerTotal < playerTotal) {
-        dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+    //  Checks for win conditions
+    for (i = 0; i < playerTotal; i++) {
+        if (dealerTotal < 21 && dealerTotal < playerTotal) {
+            dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+        }
     }
-    if (dealerTotal > 21) {
-        alert('You Win')
+    else if (dealerTotal > playerTotal) {
+        alert('dealer wins')
     }
-    if (dealerTotal > playerTotal) {
+    else if (dealerTotal > 21) {
+        alert('dealer over 21')
+    }
+    else if (playerTotal <= dealerTotal || dealerTotal === 21) {
         alert('Dealer Wins')
     }
-    if (playerTotal > dealerTotal) {
-        alert('You Win!')
+    else if (playerTotal > dealerTotal) {
+        alert('player total > dealer')
     }
+    // Updates scores
+    $('.player-total').text(`${playerTotal}`)
+    $('.dealer-total').text(`${dealerTotal}`)
+    console.log('stand', playerCards, dealerCards)
+    // reset()
 }
+function reset() {
+    playerCards = []
+    dealerCards = []
+    console.log('game reset')
+}
+
 $('.deal').on('click', function () {
     deal()
     console.log(playerCards)
