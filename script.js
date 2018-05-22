@@ -38,6 +38,12 @@ function deal() {
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
+    if (playerTotal > 21) {
+        alert('bust on deal')
+    }
+    if (dealerTotal > 21) {
+        alert('dealer bust on deal')
+    }
     $('.player-total').text(`${playerTotal}`)
     $('.dealer-total').text(`${dealerTotal}`)
 }
@@ -70,29 +76,27 @@ function stand() {
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
-    //  Checks for win conditions
-    for (i = 0; i < playerTotal; i++) {
-        if (dealerTotal < 21 && dealerTotal < playerTotal) {
-            dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
-        }
-    }
-    else if (dealerTotal > playerTotal) {
-        alert('dealer wins')
-    }
-    else if (dealerTotal > 21) {
-        alert('dealer over 21')
-    }
-    else if (playerTotal <= dealerTotal || dealerTotal === 21) {
-        alert('Dealer Wins')
-    }
-    else if (playerTotal > dealerTotal) {
-        alert('player total > dealer')
-    }
-    // Updates scores
-    $('.player-total').text(`${playerTotal}`)
     $('.dealer-total').text(`${dealerTotal}`)
-    console.log('stand', playerCards, dealerCards)
-    // reset()
+    //  Checks for win conditions
+    if (dealerTotal < 21 && dealerTotal < playerTotal) {
+        dealerCards.push(cardsValue[Math.floor(Math.random() * cardsValue.length)])
+        stand()
+    }
+    if (dealerTotal >= 17) {
+        if (playerTotal > dealerTotal || dealerTotal > 21) {
+            alert('You Win!')
+            return
+        }
+        if (playerTotal < dealerTotal) {
+            alert('You Lose')
+            return
+        }
+        if (playerTotal == dealerTotal) {
+            alert('Push!')
+            return
+        }
+        reset()
+    }
 }
 function reset() {
     playerCards = []
@@ -102,18 +106,18 @@ function reset() {
 
 $('.deal').on('click', function () {
     deal()
-    console.log(playerCards)
-    console.log(dealerCards)
+    // console.log(playerCards)
+    // console.log(dealerCards)
 })
 $('.hit').on('click', function () {
     hit()
-    console.log(playerCards)
-    console.log(dealerCards)
+    // console.log(playerCards)
+    // console.log(dealerCards)
 })
 $('.stand').on('click', function () {
     stand()
-    console.log(playerCards)
-    console.log(dealerCards)
+    console.log('player', playerCards)
+    console.log('dealer', dealerCards)
 })
 
 
