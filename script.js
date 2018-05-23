@@ -1,18 +1,3 @@
-// Stores each of the cards in the deck
-let cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
-    'twoOfSpades', 'twoOfClubs', 'twoOfHearts', 'twoOfDiamonds',
-    'threeOfSpades', 'threeOfClubs', 'threeOfHearts', 'threeOfDiamonds',
-    'fourOfSpades', 'fourOfClubs', 'fourOfHearts', 'fourOfDiamonds',
-    'fiveOfSpades', 'fiveOfClubs', 'fiveOfHearts', 'fiveOfDiamonds',
-    'sixOfSpades', 'sixOfClubs', 'sixOfHearts', 'sixOfDiamonds',
-    'sevenOfSpades', 'sevenOfClubs', 'sevenOfHearts', 'sevenOfDiamonds',
-    'eightOfSpades', 'eightOfClubs', 'eightOfHearts', 'eightOfDiamonds',
-    'nineOfSpades', 'nineOfClubs', 'nineOfHearts', 'nineOfDiamonds',
-    'tenOfSpades', 'tenOfClubs', 'tenOfHearts', 'tenOfDiamonds',
-    'jackOfSpades', 'jackOfClubs', 'jackOfHearts', 'jackOfDiamonds',
-    'queenOfSpades', 'queenOfClubs', 'queenOfHearts', 'queenOfDiamonds',
-    'kingOfSpades', 'kingOfClubs', 'kingOfHearts', 'kingOfDiamonds']
-
 // Assigns value to each of the cards in the cards array
 let cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
@@ -25,8 +10,9 @@ const playerCards = []
 // array holding the dealers current cards
 const dealerCards = []
 
-let playerWins = 3
-$('.player-wins').text(`Wins - ${playerWins}`)
+// stores players wins
+let playerWins = 0
+$('.player-wins').text(`Wins = ${playerWins}`)
 
 // pulls a random card from the cardsvalue array
 function randomNumber() {
@@ -118,6 +104,7 @@ function stand() {
     if (dealerTotal >= 17) {
         if (playerTotal > dealerTotal || dealerTotal > 21) {
             $('.toast').html('<div class="alert alert-success" role="alert">You have Won!</div>')
+            playerWins ++
             return
         }
         if (playerTotal < dealerTotal) {
@@ -131,13 +118,6 @@ function stand() {
     }
 }
 
-function bet() {
-    let bet = 10
-    let $currentBet = $('.current-bet').html('')
-    $('bet-more').on('click', function () {
-        console.log('bet more')
-    })
-}
 // resets the game
 function reset() {
     cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
@@ -146,6 +126,7 @@ function reset() {
     $('.player .player-cards').html('')
     $('.dealer .dealer-cards').html('')
     $('.toast').html('')
+    $('.player-wins').text(`Wins = ${playerWins}`)
 }
 // event listeners for buttons
 // activates the deal function when user clicks deal button

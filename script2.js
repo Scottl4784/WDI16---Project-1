@@ -14,8 +14,6 @@ function createDeck() {
 // array holding the players current cards
 let playerCards = []
 
-// let playerFaceCards = []
-
 // array holding the dealers current cards
 let dealerCards = []
 function randomNumber() {
@@ -131,3 +129,17 @@ $('.stand').on('click', function () {
 // assign random cards from the cards array to dealer until dealer total is greater than or equal to player total or dealer total is greater than 21
 // if dealer total is greater than or equal to player total and less than 21 trigger "You lose" toast
 // if dealer total is less than player total or greater than 21 trigger "You Won!" toast 
+// Stores each of the cards in the deck
+let cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
+    'twoOfSpades', 'twoOfClubs', 'twoOfHearts', 'twoOfDiamonds',
+    'threeOfSpades', 'threeOfClubs', 'threeOfHearts', 'threeOfDiamonds',
+    'fourOfSpades', 'fourOfClubs', 'fourOfHearts', 'fourOfDiamonds',
+    'fiveOfSpades', 'fiveOfClubs', 'fiveOfHearts', 'fiveOfDiamonds',
+    'sixOfSpades', 'sixOfClubs', 'sixOfHearts', 'sixOfDiamonds',
+    'sevenOfSpades', 'sevenOfClubs', 'sevenOfHearts', 'sevenOfDiamonds',
+    'eightOfSpades', 'eightOfClubs', 'eightOfHearts', 'eightOfDiamonds',
+    'nineOfSpades', 'nineOfClubs', 'nineOfHearts', 'nineOfDiamonds',
+    'tenOfSpades', 'tenOfClubs', 'tenOfHearts', 'tenOfDiamonds',
+    'jackOfSpades', 'jackOfClubs', 'jackOfHearts', 'jackOfDiamonds',
+    'queenOfSpades', 'queenOfClubs', 'queenOfHearts', 'queenOfDiamonds',
+    'kingOfSpades', 'kingOfClubs', 'kingOfHearts', 'kingOfDiamonds']
