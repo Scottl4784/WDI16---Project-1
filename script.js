@@ -47,7 +47,11 @@ function deal() {
         reset()
     }
     if (dealerTotal > 21) {
-        reset()
+        for (i = 0; i < dealerCards.length; i++) {
+            if (dealerCards[i] === 11 && dealerTotal > 21) {
+                dealerTotal = dealerTotal - 10
+            }
+        }
     }
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
@@ -75,7 +79,7 @@ function playerTurn() {
     }
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = playerCards.length - 1; i < playerCards.length; i++) {
-    $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
+        $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
     }
 }
 
@@ -96,7 +100,21 @@ function dealerTurn() {
     //  deals cards to the dealer
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
+        if (dealerTotal > 21) {
+            for (i = 0; i < dealerCards.length; i++) {
+                if (dealerCards[i] === 11 && dealerTotal > 21) {
+                    dealerTotal = dealerTotal - 10
+                }
+            }
+        }
         dealerTurn()
+    }
+    if (dealerTotal > 21) {
+        for (i = 0; i < dealerCards.length; i++) {
+            if (dealerCards[i] === 11) {
+                dealerTotal = dealerTotal - 11
+            }
+        }
     }
     // checks for win conditions
     if (dealerTotal >= 17) {
