@@ -16,10 +16,11 @@ let cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
 // Assigns value to each of the cards in the cards array
 let cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
+// holds the suits of the cards
+cardSuits = ['C', 'H', 'D', 'S']
+
 // array holding the players current cards
 const playerCards = []
-
-// let playerFaceCards = []
 
 // array holding the dealers current cards
 const dealerCards = []
@@ -27,6 +28,11 @@ const dealerCards = []
 // pulls a random card from the cardsvalue array
 function randomNumber() {
     return Math.floor(Math.random() * cardsValue.length)
+}
+// selects a random suit
+function randomSuit() {
+    return cardSuits[Math.floor(Math.random() * cardSuits.length)]
+    
 }
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 function deal() {
@@ -49,11 +55,11 @@ function deal() {
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = 0; i < playerCards.length; i++) {
-        $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
+        $('.player .player-cards').append(`<img src="images/${playerCards[i]}${randomSuit()}.png">`)
     }
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
     for (i = 0; i < dealerCards.length; i++) {
-        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}${randomSuit()}.png">`)
     }
     $('.dealer .dealer-cards').append(`<img id="cardbackground" src="images/cardbackground.png">`)
 
@@ -71,7 +77,7 @@ function playerTurn() {
     // pushes dealt card images into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = playerCards.length - 1; i < playerCards.length; i++) {
-        $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
+        $('.player .player-cards').append(`<img src="images/${playerCards[i]}${randomSuit()}.png">`)
     }
     if (playerTotal > 21) {
         $('.toast').html('<div class="alert alert-danger" role="alert">Bust!</div>')
@@ -86,7 +92,7 @@ function dealerTurn() {
     // flips over the dealers second card
     if (dealerCards.length < 2) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[1]}.png">`)
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[1]}${randomSuit()}.png">`)
         $('.dealer .dealer-cards img').remove('#cardbackground')
     }
     // sets variables used for win conditions
@@ -100,7 +106,7 @@ function dealerTurn() {
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
     // Pushes images into the DOM
     for (i = 2; i < dealerCards.length; i++) {
-        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}${randomSuit()}.png">`)
     }
     //  deals cards to the dealer until he has at least 17 or is higher than the player
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
