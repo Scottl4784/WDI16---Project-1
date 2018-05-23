@@ -52,11 +52,11 @@ function deal() {
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = 0; i < playerCards.length; i++) {
-        $('.player .player-cards').append(`<img src="imgages/${playerCards[i]}.png"></p>`)
+        $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png"></p>`)
     }
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
     for (i = 0; i < dealerCards.length; i++) {
-        $('.dealer .dealer-cards').append(`<img src="imgages/${dealerCards[i]}.png"></p>`)
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png"></p>`)
     }
 }
 
@@ -73,7 +73,10 @@ function playerTurn() {
     if (playerTotal > 21) {
         $('.toast').text('Bust').css('color', 'red')
     }
-    $('.player').html(`<h2>Player - ${playerTotal}</h2><p>${playerCards}</p>`)
+    $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
+    // for (i = 0; i < playerCards.length; i++) {
+    $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png"></p>`)
+    // }
 }
 
 
@@ -115,6 +118,7 @@ function reset() {
     playerCards = []
     dealerCards = []
     playerFaceCards = []
+    $('.player .player-cards').html('')
     $('.toast').html('')
     console.log('game reset')
 }
