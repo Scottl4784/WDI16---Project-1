@@ -28,15 +28,18 @@ Technologies Used
 
 
 Features
+    
     - Deal, hit, and stand buttons
     - Win tracker
 
 
 Project planning
+   
     Wireframe - https://gomockingbird.com/projects/gdfvfz3/4gXVnC
     User stories - https://trello.com/b/pTuv8a7r/wdi-project-1
 
 
 Future Development
+    
     - Add betting feature
     - Improve overall layout
