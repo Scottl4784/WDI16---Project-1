@@ -23,7 +23,7 @@ let playerCards = []
 
 // array holding the dealers current cards
 let dealerCards = []
-function randomNumber () {
+function randomNumber() {
     return Math.floor(Math.random() * cardsValue.length)
 }
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
@@ -31,8 +31,10 @@ function deal() {
     reset()
     // variable to select a random card value from the arrays
     for (let i = 0; i < 2; i++) {
-            playerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-            dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
+        playerCards.push(cardsValue.splice(randomNumber(), 1)[0])
+        dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
+    }
+    for (i = 0; i < playerCards.length; i++) {
     }
     // sums the total of the cards in the playercards array and puts it in playertotal 
     let playerTotal = playerCards.reduce((pv, cv) => {
@@ -42,14 +44,20 @@ function deal() {
         return pv + (parseFloat(cv) || 0)
     }, 0)
     if (playerTotal > 21) {
-       reset()
+        reset()
     }
     if (dealerTotal > 21) {
         reset()
     }
     // input player and dealer score into the DOM
-    $('.player').html(`<h2>Player - ${playerTotal}</h2><p>${playerCards}</p>`)
-    $('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
+    $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
+    for (i = 0; i < playerCards.length; i++) {
+        $('.player .player-cards').append(`<img src="imgages/${playerCards[i]}.png"></p>`)
+    }
+    $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
+    for (i = 0; i < dealerCards.length; i++) {
+        $('.dealer .dealer-cards').append(`<img src="imgages/${dealerCards[i]}.png"></p>`)
+    }
 }
 
 // if the player clicks the hit button deal another random card to the player and update the total
