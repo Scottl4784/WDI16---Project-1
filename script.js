@@ -34,10 +34,8 @@ function deal() {
     // variable to select a random card value from the arrays
     for (let i = 0; i < 2; i++) {
         playerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-        dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
     }
-    for (i = 0; i < playerCards.length; i++) {
-    }
+    dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
     // sums the total of the cards in the playercards array and puts it in playertotal 
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
@@ -57,6 +55,8 @@ function deal() {
     for (i = 0; i < dealerCards.length; i++) {
         $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
     }
+    $('.dealer .dealer-cards').append(`<img id="cardbackground" src="images/cardbackground.png">`)
+
 }
 
 // if the player clicks the hit button deal another random card to the player and update the total
@@ -82,6 +82,11 @@ function playerTurn() {
 
 // triggered by pressing the stand button and passing to the dealer
 function dealerTurn() {
+    if (dealerCards.length < 2) {
+        dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[1]}.png">`)
+        $('.dealer .dealer-cards img').remove('#cardbackground')
+    }
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
