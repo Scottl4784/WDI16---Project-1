@@ -84,8 +84,6 @@ function hit() {
     }
 }
 
-
-
 // triggered by pressing the stand button and passing to the dealer
 function stand() {
     // flips over the dealers second card
@@ -103,13 +101,14 @@ function stand() {
     }, 0)
     // Updates the dealer total in the DOM
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
-    // Pushes images into the DOM
-    for (i = 2; i < dealerCards.length; i++) {
-        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}${randomSuit()}.png">`)
-    }
+    
     //  deals cards to the dealer until he has at least 17 or is higher than the player
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
+        // Pushes new cards into the DOM
+        for (i = dealerCards.length - 1; i < dealerCards.length; i++) {
+            $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}${randomSuit()}.png">`)
+        }
         stand()
     }
     // checks for win conditions
@@ -156,17 +155,3 @@ $('.stand').on('click', function () {
         stand()
     }
 })
-
-
-
-
-
-
-// assign matching values from the cardsValue array to the cards dealt to each player
-// assign the total of the player cards to the player-total class
-
-// if the player total exceeds 21 then trigger "Bust!" toast
-// if the player clicks the stand button end player turn and go to dealer
-// assign random cards from the cards array to dealer until dealer total is greater than or equal to player total or dealer total is greater than 21
-// if dealer total is greater than or equal to player total and less than 21 trigger "You lose" toast
-// if dealer total is less than player total or greater than 21 trigger "You Won!" toast 
