@@ -44,7 +44,7 @@ function deal() {
         return pv + (parseFloat(cv) || 0)
     }, 0)
     if (playerTotal > 21) {
-        reset()
+        playerTotal - 10
     }
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
@@ -68,13 +68,14 @@ function playerTurn() {
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
-    // if player has clicked deal and has 2 cards already allow this
-    if (playerTotal > 21) {
-        $('.toast').html('<div class="alert alert-danger" role="alert">Bust!</div>')
-    }
+    // pushes dealt card images into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = playerCards.length - 1; i < playerCards.length; i++) {
         $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
+    }
+    if (playerTotal > 21) {
+        $('.toast').html('<div class="alert alert-danger" role="alert">Bust!</div>')
+        return
     }
 }
 
@@ -82,11 +83,13 @@ function playerTurn() {
 
 // triggered by pressing the stand button and passing to the dealer
 function dealerTurn() {
+    // flips over the dealers second card
     if (dealerCards.length < 2) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
         $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[1]}.png">`)
         $('.dealer .dealer-cards img').remove('#cardbackground')
     }
+    // sets variables used for win conditions
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
@@ -99,17 +102,10 @@ function dealerTurn() {
     for (i = 2; i < dealerCards.length; i++) {
         $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
     }
-    //  deals cards to the dealer
+    //  deals cards to the dealer until he has at least 17 or is higher than the player
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
         dealerTurn()
-    }
-    if (dealerTotal > 21) {
-        for (i = 0; i < dealerCards.length; i++) {
-            if (dealerCards[i] === 11) {
-                dealerTotal = dealerTotal - 11
-            }
-        }
     }
     // checks for win conditions
     if (dealerTotal >= 17) {
