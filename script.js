@@ -25,6 +25,9 @@ const playerCards = []
 // array holding the dealers current cards
 const dealerCards = []
 
+let playerWins = 3
+$('.player-wins').text(`Wins - ${playerWins}`)
+
 // pulls a random card from the cardsvalue array
 function randomNumber() {
     return Math.floor(Math.random() * cardsValue.length)
@@ -127,20 +130,29 @@ function stand() {
         }
     }
 }
+
+function bet() {
+    let bet = 10
+    let $currentBet = $('.current-bet').html('')
+    $('bet-more').on('click', function () {
+        console.log('bet more')
+    })
+}
 // resets the game
 function reset() {
     cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
     playerCards.splice(0, playerCards.length)
     dealerCards.splice(0, dealerCards.length)
-    playerFaceCards = []
     $('.player .player-cards').html('')
     $('.dealer .dealer-cards').html('')
     $('.toast').html('')
 }
 // event listeners for buttons
+// activates the deal function when user clicks deal button
 $('.deal').on('click', function () {
     deal()
 })
+// activates the hit function when user clicks hit button
 $('.hit').on('click', function () {
     if (playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
@@ -148,6 +160,7 @@ $('.hit').on('click', function () {
         hit()
     }
 })
+// activates the stand function when user clicks stand button
 $('.stand').on('click', function () {
     if (dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
