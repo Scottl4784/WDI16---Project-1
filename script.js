@@ -32,7 +32,7 @@ function randomNumber() {
 // selects a random suit
 function randomSuit() {
     return cardSuits[Math.floor(Math.random() * cardSuits.length)]
-    
+
 }
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 function deal() {
@@ -61,12 +61,12 @@ function deal() {
     for (i = 0; i < dealerCards.length; i++) {
         $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}${randomSuit()}.png">`)
     }
-    $('.dealer .dealer-cards').append(`<img id="cardbackground" src="images/cardbackground.png">`)
+    $('.dealer .dealer-cards').append(`<img id="cardbackground" src="images/red_back.png">`)
 
 }
 
 // if the player clicks the hit button deal another random card to the player and update the total
-function playerTurn() {
+function hit() {
     // checks to make sure player has started the game
     if (playerCards.length >= 2) {
         playerCards.push(cardsValue.splice(randomNumber(), 1)[0])
@@ -81,14 +81,13 @@ function playerTurn() {
     }
     if (playerTotal > 21) {
         $('.toast').html('<div class="alert alert-danger" role="alert">Bust!</div>')
-        return
     }
 }
 
 
 
 // triggered by pressing the stand button and passing to the dealer
-function dealerTurn() {
+function stand() {
     // flips over the dealers second card
     if (dealerCards.length < 2) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
@@ -111,7 +110,7 @@ function dealerTurn() {
     //  deals cards to the dealer until he has at least 17 or is higher than the player
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-        dealerTurn()
+        stand()
     }
     // checks for win conditions
     if (dealerTotal >= 17) {
@@ -127,7 +126,6 @@ function dealerTurn() {
             $('.toast').html('<div class="alert alert-info" role="alert">Its a Push</div>')
             return
         }
-        reset()
     }
 }
 // resets the game
@@ -139,17 +137,24 @@ function reset() {
     $('.player .player-cards').html('')
     $('.dealer .dealer-cards').html('')
     $('.toast').html('')
-    console.log('game reset')
 }
 // event listeners for buttons
 $('.deal').on('click', function () {
     deal()
 })
 $('.hit').on('click', function () {
-    playerTurn()
+    if (playerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0) <= 21) {
+        hit()
+    }
 })
 $('.stand').on('click', function () {
-    dealerTurn()
+    if (dealerCards.reduce((pv, cv) => {
+        return pv + (parseFloat(cv) || 0)
+    }, 0) <= 21) {
+        stand()
+    }
 })
 
 
