@@ -1,6 +1,7 @@
 body {
-    background-color: gray;
+    background-image: url(images/tablebackground.jpg);
     text-align: center;
+    color: rgb(218, 218, 218);
 }
 .alert {
     max-width: 200px;
@@ -10,5 +11,8 @@ body {
     display: inline-block;
 } */
 img {
+    margin: 5px;
+}
+button {
     margin: 5px;
 }

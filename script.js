@@ -17,12 +17,14 @@ let cards = ['aceOfSpades', 'aceOfClubs', 'aceOfHearts', 'aceOfDiamonds',
 let cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
 
 // array holding the players current cards
-let playerCards = []
+const playerCards = []
 
 // let playerFaceCards = []
 
 // array holding the dealers current cards
-let dealerCards = []
+const dealerCards = []
+
+// pulls a random card from the cardsvalue array
 function randomNumber() {
     return Math.floor(Math.random() * cardsValue.length)
 }
@@ -45,13 +47,6 @@ function deal() {
     }, 0)
     if (playerTotal > 21) {
         reset()
-    }
-    if (dealerTotal > 21) {
-        for (i = 0; i < dealerCards.length; i++) {
-            if (dealerCards[i] === 11 && dealerTotal > 21) {
-                dealerTotal = dealerTotal - 10
-            }
-        }
     }
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
@@ -93,20 +88,15 @@ function dealerTurn() {
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
+    // Updates the dealer total in the DOM
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
+    // Pushes images into the DOM
     for (i = 2; i < dealerCards.length; i++) {
         $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
     }
     //  deals cards to the dealer
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-        if (dealerTotal > 21) {
-            for (i = 0; i < dealerCards.length; i++) {
-                if (dealerCards[i] === 11 && dealerTotal > 21) {
-                    dealerTotal = dealerTotal - 10
-                }
-            }
-        }
         dealerTurn()
     }
     if (dealerTotal > 21) {
@@ -136,8 +126,8 @@ function dealerTurn() {
 // resets the game
 function reset() {
     cardsValue = [11, 11, 11, 11, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10]
-    playerCards = []
-    dealerCards = []
+    playerCards.splice(0, playerCards.length)
+    dealerCards.splice(0, dealerCards.length)
     playerFaceCards = []
     $('.player .player-cards').html('')
     $('.dealer .dealer-cards').html('')
