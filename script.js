@@ -70,7 +70,7 @@ function playerTurn() {
     }, 0)
     // if player has clicked deal and has 2 cards already allow this
     if (playerTotal > 21) {
-        $('.toast').text('Bust').css('color', 'red')
+        $('.toast').html('<div class="alert alert-danger" role="alert">Bust!</div>')
     }
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = playerCards.length - 1; i < playerCards.length; i++) {
@@ -114,15 +114,15 @@ function dealerTurn() {
     // checks for win conditions
     if (dealerTotal >= 17) {
         if (playerTotal > dealerTotal || dealerTotal > 21) {
-            $('.toast').text('You have won!').css('color', 'green')
+            $('.toast').html('<div class="alert alert-success" role="alert">You have Won!</div>')
             return
         }
         if (playerTotal < dealerTotal) {
-            $('.toast').text('You have lost').css('color', 'red')
+            $('.toast').html('<div class="alert alert-danger" role="alert">You have lost</div>')
             return
         }
         if (playerTotal == dealerTotal) {
-            $('.toast').text("It's a Push")
+            $('.toast').html('<div class="alert alert-info" role="alert">Its a Push</div>')
             return
         }
         reset()
