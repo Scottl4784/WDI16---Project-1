@@ -6,3 +6,9 @@ body {
     max-width: 200px;
     margin: 25px auto;
 }
+/* p .player-cards {
+    display: inline-block;
+} */
+img {
+    margin: 5px;
+}

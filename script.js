@@ -52,11 +52,11 @@ function deal() {
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = 0; i < playerCards.length; i++) {
-        $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png"></p>`)
+        $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
     }
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
     for (i = 0; i < dealerCards.length; i++) {
-        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png"></p>`)
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
     }
 }
 
@@ -74,9 +74,9 @@ function playerTurn() {
         $('.toast').text('Bust').css('color', 'red')
     }
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
-    // for (i = 0; i < playerCards.length; i++) {
-    $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png"></p>`)
-    // }
+    for (i = playerCards.length - 1; i < playerCards.length; i++) {
+    $('.player .player-cards').append(`<img src="images/${playerCards[i]}.png">`)
+    }
 }
 
 
@@ -89,9 +89,12 @@ function dealerTurn() {
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
-    $('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
+    $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
+    for (i = 2; i < dealerCards.length; i++) {
+        $('.dealer .dealer-cards').append(`<img src="images/${dealerCards[i]}.png">`)
+    }
     //  deals cards to the dealer
-    if (dealerTotal <= 17 && dealerTotal < playerTotal) {
+    if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
         dealerTurn()
     }
@@ -119,6 +122,7 @@ function reset() {
     dealerCards = []
     playerFaceCards = []
     $('.player .player-cards').html('')
+    $('.dealer .dealer-cards').html('')
     $('.toast').html('')
     console.log('game reset')
 }
