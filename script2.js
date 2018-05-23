@@ -1,15 +1,14 @@
-const suits = ['Spades', 'Clubs', 'Hearts', 'Diamonds'];
-const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
-const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11];
-const cards = [];
+const suits = ['Spades', 'Clubs', 'Hearts', 'Diamonds']
+const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace']
+const values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11]
+const cards = []
 function createDeck() {
     for (let i = 0; i < suits.length; i++) {
         for (let j = 0; j < faces.length; j++) {
             let card = { suit: suits[i], face: faces[j], value: values[j] }
-            cards.push(card);
+            cards.push(card)
         }
     }
-    console.log(cards);
 }
 
 // array holding the players current cards
@@ -20,7 +19,7 @@ let playerCards = []
 // array holding the dealers current cards
 let dealerCards = []
 function randomNumber() {
-    return Math.floor(Math.random() * cardsValue.length)
+    return Math.floor(Math.random() * cards.length)
 }
 // When the player presses the deal button deal 2 cards to the dealer and 2 cards to the player from the cards array
 function deal() {
@@ -54,7 +53,7 @@ function deal() {
 function playerTurn() {
     // checks to make sure player has started the game
     if (playerCards.length >= 2) {
-        playerCards.push(cards.value.splice(randomNumber(), 1)[0])
+        playerCards.push(cards[randomNumber()].value)
     }
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
@@ -72,14 +71,14 @@ function playerTurn() {
 function dealerTurn() {
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
-    }, 0)
+    }, 0).value
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
     $('.dealer').html(`<h2>Dealer - ${dealerTotal}</h2><p>${dealerCards}</p>`)
     //  deals cards to the dealer
     if (dealerTotal <= 17 && dealerTotal < playerTotal) {
-        dealerCards.push(cards.value.splice(randomNumber(), 1)[0])
+        dealerCards.push(cards[randomNumber()].value)
         dealerTurn()
     }
     // checks for win conditions

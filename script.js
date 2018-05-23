@@ -31,10 +31,8 @@ function deal() {
     reset()
     // variable to select a random card value from the arrays
     for (let i = 0; i < 2; i++) {
-        // if (playerCards.length < 2) {
             playerCards.push(cardsValue.splice(randomNumber(), 1)[0])
             dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
-        // }
     }
     // sums the total of the cards in the playercards array and puts it in playertotal 
     let playerTotal = playerCards.reduce((pv, cv) => {
@@ -97,7 +95,7 @@ function dealerTurn() {
             return
         }
         if (playerTotal == dealerTotal) {
-            $('.toast').text("It's a push")
+            $('.toast').text("It's a Push")
             return
         }
         reset()
