@@ -38,9 +38,7 @@ function deal() {
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
-    if (playerTotal > 21) {
-        playerTotal - 10
-    }
+
     // input player and dealer score into the DOM
     $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
     for (i = 0; i < playerCards.length; i++) {
