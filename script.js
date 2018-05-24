@@ -35,6 +35,7 @@ function deal() {
     let playerTotal = playerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
+    // sums the total of the cards in the dealercards array and puts it in dealertotal
     let dealerTotal = dealerCards.reduce((pv, cv) => {
         return pv + (parseFloat(cv) || 0)
     }, 0)
@@ -67,7 +68,7 @@ function hit() {
         $('.player .player-cards').append(`<img src="images/${playerCards[i]}${randomSuit()}.png">`)
     }
     if (playerTotal > 21) {
-        // checks for an ace if over 21 and changes it to 1
+        // if over 21 checks for an ace and changes it to 1
         for (i = 0; i < playerCards.length; i++) {
             if (playerCards[i] === 11) {
                 playerCards[i] = 1

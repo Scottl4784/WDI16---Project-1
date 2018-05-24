@@ -23,5 +23,6 @@ button {
 }
 .player-wins {
     text-align: right;
-    margin: 10px 35px 0 0
+    margin: 20px 50px 0 0;
+    font-size: 20px;
 }
