@@ -31,6 +31,7 @@ Features
     
     - Deal, hit, and stand buttons
     - Win tracker
+    - Toaster for Win, lose, or push
 
 
 Project planning
