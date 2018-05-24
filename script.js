@@ -8,7 +8,7 @@ cardSuits = ['C', 'H', 'D', 'S']
 const playerCards = []
 
 // array holding the dealers current cards
-const dealerCards = [11]
+const dealerCards = []
 
 // stores players wins
 let playerWins = 0
@@ -67,6 +67,7 @@ function hit() {
         $('.player .player-cards').append(`<img src="images/${playerCards[i]}${randomSuit()}.png">`)
     }
     if (playerTotal > 21) {
+        // checks for an ace if over 21 and changes it to 1
         for (i = 0; i < playerCards.length; i++) {
             if (playerCards[i] === 11) {
                 playerCards[i] = 1
@@ -108,16 +109,15 @@ function stand() {
     // checks for win conditions
     if (dealerTotal >= 17) {
         if (dealerTotal > 21) {
+            // checks for an ace if over 21 and changes it to 1
             for (i = 0; i < dealerCards.length; i++) {
                 if (dealerCards[i] === 11) {
                     dealerCards[i] = 1
                     dealerTotal -= 10
-                    console.log(dealerTotal)
                     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
-                    return dealerTotal
+                    stand()
                 }
             }
-            stand()
         }
         if (playerTotal > dealerTotal || dealerTotal > 21) {
             $('.toast').html('<div class="alert alert-success" role="alert">You have Won!</div>')
