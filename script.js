@@ -109,8 +109,8 @@ function stand() {
     }
     // checks for win conditions
     if (dealerTotal >= 17) {
+        // checks for an ace if over 21 and changes it to 1
         if (dealerTotal > 21) {
-            // checks for an ace if over 21 and changes it to 1
             for (i = 0; i < dealerCards.length; i++) {
                 if (dealerCards[i] === 11) {
                     dealerCards[i] = 1
