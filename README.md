@@ -22,7 +22,7 @@ Overview
 Technologies Used
     
     Languages - HTML, jQuery, Javascript
-    Design - CSS and Bootstrap
+    Design - CSS, Bootstrap, Google Fonts
     Project planning - Trello and Mockingbird
     Editor - VSCode
 

@@ -8,7 +8,7 @@ cardSuits = ['C', 'H', 'D', 'S']
 const playerCards = []
 
 // array holding the dealers current cards
-const dealerCards = []
+const dealerCards = [11]
 
 // stores players wins
 let playerWins = 0
@@ -67,6 +67,15 @@ function hit() {
         $('.player .player-cards').append(`<img src="images/${playerCards[i]}${randomSuit()}.png">`)
     }
     if (playerTotal > 21) {
+        for (i = 0; i < playerCards.length; i++) {
+            if (playerCards[i] === 11) {
+                playerCards[i] = 1
+                playerTotal -= 10
+                console.log(playerTotal)
+                $('.player .player-total').html(`<h2>Player - ${playerTotal}</h2>`)
+                return playerTotal
+            }
+        }
         $('.toast').html('<div class="alert alert-danger" role="alert">Bust!</div>')
     }
 }
@@ -88,7 +97,18 @@ function stand() {
     }, 0)
     // Updates the dealer total in the DOM
     $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
-    
+    if (dealerTotal > 21) {
+        for (i = 0; i < dealerCards.length; i++) {
+            if (dealerCards[i] === 11) {
+                dealerCards[i] = 1
+                dealerTotal -= 10
+                console.log(playerTotal)
+                $('.dealer .dealer-total').html(`<h2>Dealer - ${dealerTotal}</h2>`)
+                return dealerTotal
+            }
+        }
+        stand ()
+    }
     //  deals cards to the dealer until he has at least 17 or is higher than the player
     if (dealerTotal <= 17 || dealerTotal < playerTotal) {
         dealerCards.push(cardsValue.splice(randomNumber(), 1)[0])
@@ -102,10 +122,10 @@ function stand() {
     if (dealerTotal >= 17) {
         if (playerTotal > dealerTotal || dealerTotal > 21) {
             $('.toast').html('<div class="alert alert-success" role="alert">You have Won!</div>')
-            playerWins ++
+            playerWins++
             return
         }
-        if (playerTotal < dealerTotal) {
+        if (playerTotal < dealerTotal && dealerTotal <= 21) {
             $('.toast').html('<div class="alert alert-danger" role="alert">You have lost</div>')
             return
         }
